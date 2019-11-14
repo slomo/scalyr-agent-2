@@ -371,7 +371,9 @@ jobs:
 
       - run:
           working_directory: cov
-          command: coverage combine
+          command: |
+            source ../venv/bin/activate
+            coverage combine
 
       - attach_workspace:
           at: cov
