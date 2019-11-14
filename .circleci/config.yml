@@ -27,9 +27,11 @@ jobs:
           command: |
             source venv/bin/activate
             coverage run run_tests.py
+            mkdir -p coverage-unittest-27
+            mv .coverage coverage-unittest-27/.coverage.unittest-27
 
       - persist_to_workspace:
-          root: /coverage
+          root: coverage-unittest-27
           paths:
             .coverage.unittest-27
 
@@ -204,15 +206,15 @@ jobs:
           paths:
             - "venv"
       - run:
-          command: source ./.circleci/smoketest_docker.sh scalyr/scalyr-agent-ci-unittest:4 json 300
+          command: |
+            mkdir -p coverage-smoke-docker-json
+            source ./.circleci/smoketest_docker.sh scalyr/scalyr-agent-ci-unittest:4 json 300
+            mv .coverage coverage-smoke-docker-json/.coverage.smoke-docker-json
 
       - persist_to_workspace:
-          root: /coverage
+          root: coverage-smoke-docker-json
           paths:
             .coverage.smoke-docker-json
-
-      - run:
-          command: cp .coverage coverage/.coverage.smoke-docker-json
 
 
   smoke-docker-syslog:
@@ -371,7 +373,7 @@ jobs:
           at: /coverage
 
       - store_artifacts:
-          path: coverage
+          path: /coverage
 
 
 workflows:

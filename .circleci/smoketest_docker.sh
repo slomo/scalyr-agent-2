@@ -88,7 +88,7 @@ docker build -t ${agent_image} .
 
 
 # Launch Agent container (which begins gathering stdout logs)
-docker run -it -d --name ${contname_agent} \
+docker run -d --name ${contname_agent} \
 -e SCALYR_API_KEY=${SCALYR_API_KEY} -e SCALYR_SERVER=${SCALYR_SERVER} \
 -v /var/run/docker.sock:/var/scalyr/docker.sock \
 ${jsonlog_containers_mount} ${syslog_driver_portmap} \
@@ -123,5 +123,7 @@ bash -c "${smoketest_script} ${contname_verifier} ${max_wait} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
 
+docker exec ${contname_agent} scalyr-agent-2 stop
+docker cp ${contname_agent}:/.coverage .
 kill_and_delete_docker_test_containers
 
