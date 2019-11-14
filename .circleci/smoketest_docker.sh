@@ -79,7 +79,7 @@ fakeversion=`cat VERSION`
 fakeversion="${fakeversion}.ci"
 echo $fakeversion > ./VERSION
 echo "Building docker image"
-python build_package.py docker_${syslog_or_json}_builder
+python build_package.py docker_${syslog_or_json}_builder --dockerfiles-path docker/coverage
 
 # Extract and build agent docker image
 ./scalyr-docker-agent-${syslog_or_json}-${fakeversion} --extract-packages
@@ -88,7 +88,7 @@ docker build -t ${agent_image} .
 
 
 # Launch Agent container (which begins gathering stdout logs)
-docker run -d --name ${contname_agent} \
+docker run -it -d --name ${contname_agent} \
 -e SCALYR_API_KEY=${SCALYR_API_KEY} -e SCALYR_SERVER=${SCALYR_SERVER} \
 -v /var/run/docker.sock:/var/scalyr/docker.sock \
 ${jsonlog_containers_mount} ${syslog_driver_portmap} \

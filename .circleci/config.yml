@@ -27,7 +27,14 @@ jobs:
           command: |
             source venv/bin/activate
             coverage run run_tests.py
-            coverage html --omit="scalyr_agent/third_party*,scalyr_agent/tests/*" -d cover
+
+      - persist_to_workspace:
+          root: /coverage
+          paths:
+            .coverage.unittest-27
+
+      - run:
+          command: cp .coverage coverage/.coverage.unittest-27
 
       - store_artifacts:
           path: xunit.xml
@@ -199,6 +206,15 @@ jobs:
       - run:
           command: source ./.circleci/smoketest_docker.sh scalyr/scalyr-agent-ci-unittest:4 json 300
 
+      - persist_to_workspace:
+          root: /coverage
+          paths:
+            .coverage.smoke-docker-json
+
+      - run:
+          command: cp .coverage coverage/.coverage.smoke-docker-json
+
+
   smoke-docker-syslog:
     docker:
       - image: circleci/python:2.7-jessie-browsers
@@ -336,6 +352,28 @@ jobs:
             # dump services
             kubectl get svc  --all-namespaces | grep -vE '(kube-sys|docker)'
 
+  coverage:
+    working_directory: ~/scalyr-agent-2
+    docker:
+      - image: circleci/python:2.7-jessie-browsers
+        environment:
+          PYTHONPATH=./scalyr_agent/third_party
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "dev-requirements.txt" }}
+      - run:
+          command: |
+            virtualenv venv
+            source venv/bin/activate
+            pip install -r dev-requirements.txt
+      - attach_workspace:
+          at: /coverage
+
+      - store_artifacts:
+          path: coverage
+
+
 workflows:
   version: 2
   unittest:
@@ -355,3 +393,7 @@ workflows:
       - smoke-k8s
       - smoke-standalone-24-tlsproxy
       - smoke-standalone-25-tlsproxy
+      - coverage:
+          requires:
+            - unittest-27
+            - smoke-docker-json
