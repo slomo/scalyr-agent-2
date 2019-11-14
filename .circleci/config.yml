@@ -380,6 +380,7 @@ jobs:
 
       - run:
           name: report
+          working_directory: cov
           command:
             source ../venv/bin/activate
             coverage report
