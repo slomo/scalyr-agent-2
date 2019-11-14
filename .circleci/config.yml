@@ -365,8 +365,13 @@ jobs:
           command: |
             virtualenv venv
             source venv/bin/activate
-            pip install -r dev-requirements.txt
+            pip install coverage
             mkdir -p cov
+            cp .circleci/.coveragerc cov
+
+      - run:
+          working_directory: cov
+          command: coverage combine
 
       - attach_workspace:
           at: cov
