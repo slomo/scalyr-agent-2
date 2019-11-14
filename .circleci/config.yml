@@ -369,14 +369,20 @@ jobs:
             mkdir -p cov
             cp .circleci/.coveragerc cov
 
+      - attach_workspace:
+          at: cov
+
       - run:
           working_directory: cov
           command: |
             source ../venv/bin/activate
             coverage combine
 
-      - attach_workspace:
-          at: cov
+      - run:
+          - name: report
+          - command:
+              source ../venv/bin/activate
+              coverage report
 
       - store_artifacts:
           path: cov
