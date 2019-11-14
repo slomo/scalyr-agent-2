@@ -35,9 +35,6 @@ jobs:
           paths:
             .coverage.unittest-27
 
-      - run:
-          command: cp .coverage coverage/.coverage.unittest-27
-
       - store_artifacts:
           path: xunit.xml
 

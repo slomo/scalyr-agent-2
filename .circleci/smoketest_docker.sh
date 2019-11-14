@@ -123,6 +123,7 @@ bash -c "${smoketest_script} ${contname_verifier} ${max_wait} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
 
+echo "Stopping"
 docker exec ${contname_agent} scalyr-agent-2 stop
 echo "Stopped"
 docker cp ${contname_agent}:/.coverage .
