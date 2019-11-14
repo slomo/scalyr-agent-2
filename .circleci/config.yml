@@ -379,10 +379,10 @@ jobs:
             coverage combine
 
       - run:
-          - name: report
-          - command:
-              source ../venv/bin/activate
-              coverage report
+          name: report
+          command:
+            source ../venv/bin/activate
+            coverage report
 
       - store_artifacts:
           path: cov
