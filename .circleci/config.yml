@@ -366,13 +366,13 @@ jobs:
             virtualenv venv
             source venv/bin/activate
             pip install -r dev-requirements.txt
-            mkdir -p /coverage
+            mkdir -p cov
 
       - attach_workspace:
-          at: /coverage
+          at: cov
 
       - store_artifacts:
-          path: /coverage
+          path: cov
 
 
 workflows:
