@@ -381,9 +381,10 @@ jobs:
       - run:
           name: report
           working_directory: cov
-          command:
+          command: |
             source ../venv/bin/activate
             coverage report
+
 
       - store_artifacts:
           path: cov
