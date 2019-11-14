@@ -366,6 +366,8 @@ jobs:
             virtualenv venv
             source venv/bin/activate
             pip install -r dev-requirements.txt
+            mkdir -p /coverage
+
       - attach_workspace:
           at: /coverage
 

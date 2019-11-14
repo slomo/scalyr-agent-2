@@ -124,11 +124,10 @@ bash -c "${smoketest_script} ${contname_verifier} ${max_wait} \
 --debug true"
 
 echo "Stopping"
-#docker exec ${contname_agent} scalyr-agent-2 stop
 docker stop ${contname_agent}
 echo "Stopped"
 docker cp ${contname_agent}:/.coverage .
 echo "Copied"
-#kill_and_delete_docker_test_containers
+kill_and_delete_docker_test_containers
 echo "Finished"
 
