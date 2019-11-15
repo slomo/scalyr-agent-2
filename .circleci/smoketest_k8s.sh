@@ -148,5 +148,5 @@ ${contname_verifier} ${max_wait} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
 
-kubectl exec ${agent_hostname} scalyr-agent-2 stop
+kubectl exec ${agent_hostname} killall coverage
 kubectl cp ${agent_hostname}:/.coverage .
