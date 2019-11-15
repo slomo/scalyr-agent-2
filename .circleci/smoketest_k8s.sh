@@ -151,5 +151,5 @@ ${contname_verifier} ${max_wait} \
 
 echo "Stopping agent"
 docker ps -a
-kubectl exec -it ${agent_hostname} pkill coverage || true
+kubectl exec -it ${agent_hostname} -- scalyr-agent-2 stop
 kubectl cp ${agent_hostname}:/.coverage .
