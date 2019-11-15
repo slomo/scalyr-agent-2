@@ -4,7 +4,7 @@
 FROM python:2.7-slim as scalyr-dependencies
 MAINTAINER Scalyr Inc <support@scalyr.com>
 
-RUN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y build-essential procps
 RUN pip --no-cache-dir install --root /tmp/dependencies ujson yappi coverage
 
 # main image - copies dependencies from scalyr-dependencies and extracts
