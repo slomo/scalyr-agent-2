@@ -150,5 +150,6 @@ ${contname_verifier} ${max_wait} \
 
 
 echo "Stopping agent"
+docker ps -a
 kubectl exec -it ${agent_hostname} pkill coverage || true
 kubectl cp ${agent_hostname}:/.coverage .
