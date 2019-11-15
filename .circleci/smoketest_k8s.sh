@@ -148,5 +148,7 @@ ${contname_verifier} ${max_wait} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
 
+
+echo "Stopping agent"
 kubectl exec ${agent_hostname} killall coverage
 kubectl cp ${agent_hostname}:/.coverage .
