@@ -150,5 +150,5 @@ ${contname_verifier} ${max_wait} \
 
 
 echo "Stopping agent"
-kubectl exec -it ${agent_hostname} killall coverage
+kubectl exec -it ${agent_hostname} killall5
 kubectl cp ${agent_hostname}:/.coverage .
