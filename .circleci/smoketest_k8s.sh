@@ -147,3 +147,6 @@ ${contname_verifier} ${max_wait} \
 --agent_hostname ${agent_hostname} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
+
+kubectl exec ${agent_hostname} scalyr-agent-2 stop
+kubectl cp ${agent_hostname}:/.coverage .

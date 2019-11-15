@@ -282,7 +282,19 @@ jobs:
       - run:
           name: build k8s agent and run smoketest
           command: |
+            mkdir -p coverage-smoke-k8s
             source ./.circleci/smoketest_k8s.sh scalyr/scalyr-agent-ci-unittest:4 300 no_delete_existing_k8s_objs
+            mv .coverage coverage-smoke-k8s/.coverage.-smoke-k8s
+
+      - persist_to_workspace:
+          root: coverage-smoke-k8s
+          paths:
+            .coverage.-smoke-k8s
+
+      - store_artifacts:
+          path: coverage-smoke-k8s
+
+
 
   smoke-k8s-helm:
     machine:
