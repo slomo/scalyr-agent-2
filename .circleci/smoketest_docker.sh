@@ -123,11 +123,9 @@ bash -c "${smoketest_script} ${contname_verifier} ${max_wait} \
 --uploader_hostname ${uploader_hostname} \
 --debug true"
 
-echo "Stopping"
+echo "Stopping agent."
 docker stop ${contname_agent}
-echo "Stopped"
+echo "Agent stopped copying .coverage results."
 docker cp ${contname_agent}:/.coverage .
-echo "Copied"
 kill_and_delete_docker_test_containers
-echo "Finished"
 

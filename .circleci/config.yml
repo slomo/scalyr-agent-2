@@ -291,10 +291,6 @@ jobs:
           paths:
             .coverage.smoke-k8s
 
-      - store_artifacts:
-          path: coverage-smoke-k8s
-
-
 
   smoke-k8s-helm:
     machine:
@@ -390,6 +386,9 @@ jobs:
             source ../venv/bin/activate
             coverage combine
 
+      - store_artifacts:
+          path: cov
+
       - run:
           name: report
           working_directory: cov
@@ -398,8 +397,6 @@ jobs:
             coverage report
 
 
-      - store_artifacts:
-          path: cov
 
 
 workflows:

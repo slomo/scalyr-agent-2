@@ -150,9 +150,8 @@ ${contname_verifier} ${max_wait} \
 
 
 echo "Stopping agent"
-
 k8s_docker_id=$(docker ps | grep k8s_scalyr-agent_scalyr-agent-2 | awk {'print$1'})
 docker container stop ${k8s_docker_id}
 
-echo "Copying"
+echo "Agent stopped copying .coverage results."
 docker cp ${k8s_docker_id}:/.coverage .
