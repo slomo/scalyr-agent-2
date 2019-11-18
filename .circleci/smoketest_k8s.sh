@@ -150,6 +150,8 @@ ${contname_verifier} ${max_wait} \
 
 
 echo "Stopping agent"
-docker ps -a
-kubectl exec -it ${agent_hostname} -- scalyr-agent-2 stop
+
+docker container stop $(docker ps | grep k8s_scalyr-agent_scalyr-agent-2 | awk {'print$1'})
+
+echo "Copying"
 kubectl cp ${agent_hostname}:/.coverage .
