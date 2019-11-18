@@ -425,3 +425,4 @@ workflows:
           requires:
             - unittest-27
             - smoke-docker-json
+            - smoke-k8s
